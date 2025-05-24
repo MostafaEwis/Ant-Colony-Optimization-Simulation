@@ -212,7 +212,9 @@ class Ant{
 			}else if(dir == 7){
 				c--;
 			}
-			this.currentPath.push([this.currentNum, dir]);
+			if(!this.currentPath.includes([this.currentNum, dir])){
+				this.currentPath.push([this.currentNum, dir]);
+			}
 			this.currentNum = r * gridLen + c;	
 			if(traditional){
 				if(r <= gridLen - 1 && r >= gridLen - 6 && c <= gridLen - 1 && c >= gridLen - 6){
@@ -261,6 +263,7 @@ class Ant{
 }
 class Colony{
 	ants = [];
+	iterations = 1;
 	static antsAtFoodSource = 0;
 	constructor(gridRef){
 		for(let i = 0; i < antNum; i++){
@@ -268,6 +271,7 @@ class Colony{
 		}
 	}
 	backToHome(){
+		this.iterations++;
 		let gridRef = this.ants[0].gridRef;
 		this.ants.forEach(ant => {
 			ant.currentPath.forEach(arr => {
@@ -309,7 +313,7 @@ function setup() {
 	fpsP = createP("fps");
 	fpsP.position(720, 65);
 	fpsSlider.size(120);
-	rateSlider= createSlider(0.01, 1, 0.9, 0.01);
+	rateSlider= createSlider(0.01, 1, 0.5, 0.01);
 	rateSlider.position(840, 100);
 	rateP = createP("evaporation");
 	rateP .position(720, 85);
@@ -318,10 +322,13 @@ function setup() {
 	traditionalCheck.position(840, 60);
 	traditionalCheckP = createP("ACO");
 	traditionalCheckP.position(720, 45);
+	iterationsP= createP("Iterations: ");
+	iterationsP.position(720, 105);
 }
 function draw() {
 	fps = fpsSlider.value();
 	fpsP.html("fps: " + fpsSlider.value())
+	iterationsP.html("Iterations: " + colony.iterations)
 	rate = rateSlider.value();
 	rateP.html("evaporation: " + rateSlider.value())
 	traditional = traditionalCheck.checked();

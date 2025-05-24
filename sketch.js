@@ -251,7 +251,7 @@ class Ant{
 		}
 	}
 	layPhermone(n, dir){
-		this.gridRef.dots[n].directions[dir] += q / this.currentPath.length;
+		this.gridRef.dots[n].directions[dir] += q / this.currentPathLen;
 	}
 	draw(){
 		noStroke();
@@ -308,6 +308,8 @@ let rateSlider;
 let rateP;
 let traditionalCheck;
 let traditionalCheckP;
+let iterationP;
+let ants
 function setup() {
 	createCanvas(700, 700);
 	grid = new Grid(gridLen ** 2);
@@ -328,11 +330,14 @@ function setup() {
 	traditionalCheckP.position(720, 45);
 	iterationsP= createP("Iterations: ");
 	iterationsP.position(720, 105);
+	antsAtFoodP = createP("Ants at food source: ");
+	antsAtFoodP .position(720, 125);
 }
 function draw() {
 	fps = fpsSlider.value();
 	fpsP.html("fps: " + fpsSlider.value())
 	iterationsP.html("Iterations: " + colony.iterations)
+	antsAtFoodP.html("Ants at food source: " + Colony.antsAtFoodSource)
 	rate = rateSlider.value();
 	rateP.html("evaporation: " + rateSlider.value())
 	traditional = traditionalCheck.checked();

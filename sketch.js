@@ -126,6 +126,7 @@ class Grid{
 class Ant{
 	currentNum;
 	currentPath = [];
+	currentPathLen = 0;
 	gridRef;
 	searchForFood = true;
 	goAround = true;
@@ -215,6 +216,7 @@ class Ant{
 			if(!this.currentPath.includes([this.currentNum, dir])){
 				this.currentPath.push([this.currentNum, dir]);
 			}
+			this.currentPathLen++;
 			this.currentNum = r * gridLen + c;	
 			if(traditional){
 				if(r <= gridLen - 1 && r >= gridLen - 6 && c <= gridLen - 1 && c >= gridLen - 6){
@@ -229,6 +231,7 @@ class Ant{
 						this.layPhermone(arr[0], arr[1]);
 					})
 					this.currentPath = [];
+					this.currentPathLen = 0;
 					this.searchForFood = false;
 					this.gridRef.decay();
 				}
@@ -238,6 +241,7 @@ class Ant{
 						this.layPhermone(arr[0], arr[1]);
 					})
 					this.currentPath = [];
+					this.currentPathLen = 0;
 					this.searchForFood = true;
 					this.gridRef.decay();
 				}

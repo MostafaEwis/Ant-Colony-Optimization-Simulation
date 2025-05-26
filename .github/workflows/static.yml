@@ -38,7 +38,8 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
-          enablement: true
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with: 
+          enablement: true
